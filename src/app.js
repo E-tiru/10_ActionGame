@@ -181,6 +181,8 @@ var Player = cc.Sprite.extend({
           var action = new cc.RepeatForever(new cc.animate(animation));
           //実行
           this.runAction(action);
+
+
           //３．テクスチャーからスプライトフレームを切り出す方法
               //スプライトフレームを格納する配列
               var texture = cc.textureCache.addImage(res.sir);
