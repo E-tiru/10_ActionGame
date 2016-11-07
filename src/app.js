@@ -1,7 +1,7 @@
 var size;
 //1:地面　2:ブロック　3:プレイヤ　4:ゾンビ 5:こうもり 6:パネル
 var level = [
-   [0, 0, 0, 0, 6, 0, 0, 0, 0, 0],
+   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
    [0, 0, 0, 0, 0, 0, 0, 5, 0, 0],
    [0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -9,7 +9,7 @@ var level = [
    [0, 0, 0, 0, 3, 0, 0, 0, 4, 0],
    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ];
-var tileSize = 96;
+var tileSize = 48;
 var playerPosition; //マップ内のプレイやの位置(ｘ、ｙ)を保持する
 var playerSprite; //プレイヤーのスプライト
 var leftBtn; //左ボタン
@@ -57,20 +57,28 @@ var backgroundLayer = cc.Layer.extend({
       backgroundSprite.setPosition(winSize.width / 2, winSize.height / 2);
       //背景画像を画面の大きさに合わせるためのScaling処理
       backgroundSprite.setScale(winSize.width / size.width, winSize.height / size.height);
+
       var curtain = cc.Sprite.create(res.curtain);
       var size = curtain.getContentSize();
       this.addChild(curtain);
       curtain.setPosition(winSize.width/9,winSize.height/2);
       curtain.setScale(winSize.height/size.height);
+
       var curtain = cc.Sprite.create(res.curtain2);
       this.addChild(curtain);
       var size = curtain.getContentSize();
       curtain.setPosition(winSize.width/1.15,winSize.height/2);
       curtain.setScale(winSize.height/size.height);
+
       var gamebg = cc.Sprite.create(res.background_light);
       gamebg.setPosition(size.width/2,size.height/2);
       gamebg.setScale(1,1);
       this.addChild(gamebg);
+
+      var ui_panels = cc.Sprite.create(res.ui_panels);
+      ui_panels.setPosition(size.width * 1.9,size.height/0.8);
+      ui_panels.setScale(winSize.height/size.height);
+      this.addChild(ui_panels);
    }
 
 });
@@ -84,17 +92,17 @@ var levelLayer = cc.Layer.extend({
             switch (level[i][j]) {
                case 1:
                   var groundSprite = cc.Sprite.create(res.background_front);
-                  groundSprite.setPosition(tileSize / 2 + tileSize * j, 96 * (7.8 - i) - tileSize / 2);
+                  groundSprite.setPosition(tileSize / 2 + tileSize * j, 48 * (7.8 - i) - tileSize / 2);
                   this.addChild(groundSprite);
                   break;
                case 2:
                   var blockSprite = cc.Sprite.create(res.block);
-                  blockSprite.setPosition(tileSize / 2 + tileSize * j, 96 * (7 - i) - tileSize / 2);
+                  blockSprite.setPosition(tileSize / 2 + tileSize * j, 48 * (7 - i) - tileSize / 2);
                   this.addChild(blockSprite);
                   break;
               case 6:
                    var ui_panels = cc.Sprite.create(res.ui_panels);
-                   ui_panels.setPosition(tileSize / 1 + tileSize * j, 96 * (7 - i) - tileSize / 10);
+                   ui_panels.setPosition(tileSize / 1 + tileSize * j, 48 * (7 - i) - tileSize / 10);
                    this.addChild(ui_panels);
                    break;
             }
@@ -155,7 +163,7 @@ var Player = cc.Sprite.extend({
       for (i = 0; i < 7; i++) {　　　　　　
          for (j = 0; j < 10; j++) {
             if (level[i][j] == 3) {
-               this.setPosition(tileSize / 2 + tileSize * j, 96 * (7 - i) - tileSize / 2);
+               this.setPosition(tileSize / 2 + tileSize * j, 48 * (7 - i) - tileSize / 2);
                playerPosition = {
                   x: j,
                   y: i
@@ -217,7 +225,7 @@ var Player = cc.Sprite.extend({
       animationframe.push(frame3);
       animationframe.push(frame4);
       //スプライトフレームの配列を連続再生するアニメーションの定義
-      var animation = new cc.Animation(animationframe, 0.08);
+      var animation = new cc.Animation(animationframe, 0.2);
       //永久ループのアクションを定義
       var action = new cc.RepeatForever(new cc.animate(animation));
       //実行

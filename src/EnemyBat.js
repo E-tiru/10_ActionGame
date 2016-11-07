@@ -23,7 +23,7 @@ var EnemyBat = cc.Sprite.extend({
     for (i = 0; i < 7; i++) {　　　　　　
       for (j = 0; j < 10; j++) {
         if (level[i][j] == 5) {
-          this.setPosition(tileSize / 2 + tileSize * j, 96 * (7 - i) - tileSize / 2);
+          this.setPosition(tileSize / 2 + tileSize * j, 48 * (7 - i) - tileSize / 2);
         }
       }
     }

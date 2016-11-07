@@ -20,7 +20,7 @@ var Slime3= cc.Sprite.extend({
         for (i = 0; i < 7; i++) {　　　　　　
             for (j = 0; j < 10; j++) {
                 if (level[i][j] == 4) {
-                    this.setPosition(tileSize / 7 + tileSize * j, 96 * (7 - i) - tileSize / 1);
+                    this.setPosition(tileSize / 7 + tileSize * j, 48 * (7 - i) - tileSize / 1);
                 }
             }
         }
